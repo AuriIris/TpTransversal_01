@@ -9,12 +9,12 @@ package Vistas;
  *
  * @author Romi
  */
-public class frmiAlumno extends javax.swing.JInternalFrame {
+public class frmiListarPorMateria extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form frmiAlumno
+     * Creates new form frmiListarPorMateria
      */
-    public frmiAlumno() {
+    public frmiListarPorMateria() {
         initComponents();
     }
 
@@ -26,6 +26,8 @@ public class frmiAlumno extends javax.swing.JInternalFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
+        setTitle("Listar Alumnos Por Materia");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
