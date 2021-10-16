@@ -60,6 +60,16 @@ public class frmiAgregarAlumno extends javax.swing.JInternalFrame {
         });
 
         btnCargar.setText("Cargar");
+        btnCargar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCargarMouseClicked(evt);
+            }
+        });
+        btnCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargarActionPerformed(evt);
+            }
+        });
 
         btnVolver.setText("Volver");
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -176,6 +186,14 @@ public class frmiAgregarAlumno extends javax.swing.JInternalFrame {
        char c=evt.getKeyChar();
      if(c<'0'||c>'9')evt.consume();
     }//GEN-LAST:event_tfLegajoKeyTyped
+
+    private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCargarActionPerformed
+
+    private void btnCargarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCargarMouseClicked
+        
+    }//GEN-LAST:event_btnCargarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -12,6 +12,7 @@ import java.time.LocalDate;
  */
 public class Alumno {
    private int idAlumno;
+   private int legajo;
    private String nombre;
    private String apellido;
    private boolean activo;
@@ -19,9 +20,10 @@ public class Alumno {
     
 
 
-  public Alumno(int idAlumno, String nombre, String apellido, boolean activo, LocalDate fechaNac) {
+  public Alumno(int idAlumno,int legajo, String nombre, String apellido, boolean activo, LocalDate fechaNac) {
 
         this.idAlumno = idAlumno;
+        this.legajo=legajo;
         this.nombre = nombre;
         this.apellido = apellido;
         this.activo = activo;
@@ -29,13 +31,22 @@ public class Alumno {
 
    }
 
-    public Alumno(String nombre, String apellido, boolean activo, LocalDate fechaNac) {
+    public Alumno(int legajo,String nombre, String apellido, boolean activo, LocalDate fechaNac) {
+        this.legajo=legajo;
         this.nombre = nombre;
         this.apellido = apellido;
         this.activo = activo;
         this.fechaNac = fechaNac;
     }
+    
+    public int getLegajo() {
+        return legajo;
+    }
 
+    public void setLegajo(int legajo) {
+        this.legajo = legajo;
+    }
+  
     public Alumno() {
     }
 
@@ -70,7 +81,10 @@ public class Alumno {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
-
+    @Override
+    public String toString() {
+        return "Alumno{" + "idAlumno=" + idAlumno + ", nombre=" + nombre + ", apellido=" + apellido + ", activo=" + activo + ", fechaNac=" + fechaNac + '}';
+    }
     public LocalDate getFechaNac() {
         return fechaNac;
     }
