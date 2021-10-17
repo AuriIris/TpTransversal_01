@@ -24,6 +24,7 @@ public class MateriaData {
     }
  }
 
+
  public void guardarMateria(Materia mat) {
      String sql = "INSERT INTO materia (nombre,anio,activo) VALUES (?,?,?)";
 

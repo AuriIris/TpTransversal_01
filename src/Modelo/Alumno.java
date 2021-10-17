@@ -83,7 +83,7 @@ public class Alumno {
     }
     @Override
     public String toString() {
-        return "Alumno{" + "idAlumno=" + idAlumno + ", nombre=" + nombre + ", apellido=" + apellido + ", activo=" + activo + ", fechaNac=" + fechaNac + '}';
+        return "Alumno{" + "idAlumno=" + idAlumno + "legajo="+legajo+ "nombre=" + nombre + ", apellido=" + apellido + ", activo=" + activo + ", fechaNac=" + fechaNac + '}';
     }
     public LocalDate getFechaNac() {
         return fechaNac;

@@ -5,6 +5,14 @@
  */
 package Vistas;
 
+import Data.AlumnoData;
+import Modelo.Alumno;
+import Modelo.Conexion;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Romi
@@ -16,6 +24,7 @@ public class frmiModificarAlumno extends javax.swing.JInternalFrame {
      */
     public frmiModificarAlumno() {
         initComponents();
+        cargarCbo();
     }
 
     /**
@@ -77,6 +86,11 @@ public class frmiModificarAlumno extends javax.swing.JInternalFrame {
         });
 
         btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnVolver.setText("Volver");
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -226,7 +240,31 @@ public class frmiModificarAlumno extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+public void cargarCbo(){
+        try {
+            Conexion con=new Conexion();
+            AlumnoData a=new AlumnoData(con);
+            List<Alumno> alumnos= a.buscarTodosAlumnos();
+            for (int i = 0; i < alumnos.size(); i++) {
+                cboNombre.addItem(alumnos.get(i).getNombre());
+            }
+            for (int i = 0; i < alumnos.size(); i++) {
+                cboApellido.addItem(alumnos.get(i).getApellido());
+            }
+             for (int i = 0; i < alumnos.size(); i++) {
+                cboLegajo.addItem(alumnos.get(i).getLegajo());
+            }  
+             for (int i = 0; i < alumnos.size(); i++) {
+             //   cboFecNac.addItem(alumnos.get(i).getFechaNac());
+            }
+                    
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiModificarAlumno.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+
+
+}
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
   dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_btnVolverActionPerformed
@@ -249,6 +287,10 @@ char c=evt.getKeyChar();
      if(c<'0'||c>'9')evt.consume();        // TODO add your handling code here:
     }//GEN-LAST:event_tfLegajoKeyTyped
 
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnModificarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLimpiar;
@@ -261,7 +303,7 @@ char c=evt.getKeyChar();
     private javax.swing.JComboBox<String> cboAño;
     private javax.swing.JComboBox<String> cboDia;
     private javax.swing.JComboBox<String> cboFecNac;
-    private javax.swing.JComboBox<String> cboLegajo;
+    private javax.swing.JComboBox<Integer> cboLegajo;
     private javax.swing.JComboBox<String> cboMes;
     private javax.swing.JComboBox<String> cboNombre;
     private javax.swing.JComboBox<String> jComboBox1;

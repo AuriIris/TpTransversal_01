@@ -5,6 +5,13 @@
  */
 package Vistas;
 
+import Data.MateriaData;
+import Modelo.Conexion;
+import Modelo.Materia;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Romi
@@ -52,6 +59,11 @@ public class frmiAgregarMateria extends javax.swing.JInternalFrame {
         });
 
         jButton1.setText("Guardar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Limpiar");
 
@@ -122,6 +134,23 @@ public class frmiAgregarMateria extends javax.swing.JInternalFrame {
         char c=evt.getKeyChar();
          if(c<'0'||c>'9')evt.consume();        // TODO add your handling code here:
     }//GEN-LAST:event_tfAñoKeyTyped
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       String nom=tfNombre.getText();
+       int anio=Integer.parseInt(tfAño.getText());
+       boolean act=cbActivo.isSelected();
+       Materia m=new Materia(anio,nom,act);
+       Conexion con;
+        try {
+            con = new Conexion();
+            MateriaData mat= new MateriaData(con);
+             mat.guardarMateria(m);
+             JOptionPane.showInputDialog(null, m.toString());
+       } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiAgregarAlumno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

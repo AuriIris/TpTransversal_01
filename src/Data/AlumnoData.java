@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -27,19 +29,25 @@ public class AlumnoData {
             System.out.println("Error en la conexion");
         }
     }
+
+    public AlumnoData() {
+        //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     public void guardarAlumno(Alumno alumno) {
-        try {
+     
             String sql = "INSERT INTO alumno(legajo,nombre,apellido,fechaNac,activo) VALUES (?,?,?,?,?)";
-            try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            try {
+                PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                
                 ps.setInt(1, alumno.getLegajo());
                 ps.setString(2, alumno.getNombre());
                 ps.setString(3, alumno.getApellido());
                 ps.setDate(4, Date.valueOf(alumno.getFechaNac()));
                 ps.setBoolean(5, alumno.isActivo());
                 ps.executeUpdate();
-            }
+            
         } catch (SQLException ex) {
             System.out.println("Error al guardar "+ex);
         }
@@ -61,6 +69,51 @@ public class AlumnoData {
       
     
     }
+    public List<Alumno> buscarTodosAlumnos(){
+    List<Alumno> resultados;
+        resultados = new ArrayList<>();
+        Alumno alum= null;
+        String sql = "SELECT * FROM alumno ";
+    try{
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+    while(rs.next()){
+        alum = new Alumno();
+        alum.setIdAlumno(rs.getInt("idAlumno"));
+        alum.setNombre(rs.getString("nombre"));
+        alum.setActivo(rs.getBoolean("activo"));
+
+    resultados.add(alum);
+    }
+    ps.close();
+    }
+    catch(SQLException ex){
+        System.out.println("No se encontraron resultados: "+ ex);
+    }
+return resultados;
+
+  }
+
+public Alumno buscarPorID (int ID){
+ Alumno alum = null;
+String sql = "SELECT * FROM alumno Where idAlumno=?";
+try{
+PreparedStatement ps = con.prepareStatement(sql);
+ps.setInt(1, ID);
+ResultSet rs = ps.executeQuery();
+if(rs.next()) {
+ alum = new Alumno();
+
+ alum.setIdAlumno(rs.getInt("idAlumno"));
+ alum.setNombre(rs.getString("nombre"));
+ alum.setActivo(rs.getBoolean("activo"));
+}
+}
+catch(SQLException ex){
+ System.out.println("Alumno no encontrado: " + ex);
+}
+return alum;
+}
     public void desactivarAlumno(int id){
     String sql = "UPDATE alumno SET activo=? WHERE idAlumno=?";
         try {
@@ -75,7 +128,7 @@ public class AlumnoData {
     }
     
      public void activarAlumno(int id){
-    String sql = "UPDATE alumno SET activo=? WHERE idAlumno=?";
+        String sql = "UPDATE alumno SET activo=? WHERE idAlumno=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setBoolean(1,true);

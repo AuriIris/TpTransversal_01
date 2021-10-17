@@ -39,10 +39,10 @@ public class Main {
 //          Conexion con=new Conexion();
 //          AlumnoData al= new AlumnoData(con);
 //          MateriaData ma=new MateriaData(con);
-//          ;
+//             System.out.println(al.buscarAlumno(2).toString());
 //          InscripcionData ad=new InscripcionData(con);
-//         Inscripcion a = new Inscripcion(al.buscarAlumno(4568),ma.buscarPorID(2),5,true);
-//         ad.guardarInscripcion(a);
+//         //Inscripcion a = new Inscripcion(ma.buscarPorID(2),5,true);
+//        
 //         }
 //         catch(ClassNotFoundException ex){
 //             System.out.println("en el main" + ex);
@@ -59,16 +59,17 @@ public class Main {
 //             System.out.println("en el main" + ex);
 //         }
 //            
-                 try{
-          Conexion con=new Conexion();
-          AlumnoData al= new AlumnoData(con);
-          MateriaData ma=new MateriaData(con);
-          InscripcionData ad=new InscripcionData(con);
-          Inscripcion a = new Inscripcion(al.buscarAlumno(1),ma.buscarPorID(2),5,true);
-          ad.guardarInscripcion(a);
-         }
-         catch(ClassNotFoundException ex){
-             System.out.println("en el main" + ex);
-         }
+//                 try{
+//          Conexion con=new Conexion();
+//          AlumnoData al= new AlumnoData(con);
+//          MateriaData ma=new MateriaData(con);
+//          InscripcionData ad=new InscripcionData(con);
+//          Inscripcion a = new Inscripcion(al.buscarAlumno(1),ma.buscarPorID(2),5,true);
+//          ad.guardarInscripcion(a);
+//         }
+//         catch(ClassNotFoundException ex){
+//             System.out.println("en el main" + ex);
+//         }
+
      }
 }
