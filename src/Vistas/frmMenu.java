@@ -56,11 +56,11 @@ public class frmMenu extends javax.swing.JFrame {
         jdpMenu.setLayout(jdpMenuLayout);
         jdpMenuLayout.setHorizontalGroup(
             jdpMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 429, Short.MAX_VALUE)
+            .addGap(0, 520, Short.MAX_VALUE)
         );
         jdpMenuLayout.setVerticalGroup(
             jdpMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 544, Short.MAX_VALUE)
+            .addGap(0, 555, Short.MAX_VALUE)
         );
 
         mModificarAlumno.setText("Alumno");

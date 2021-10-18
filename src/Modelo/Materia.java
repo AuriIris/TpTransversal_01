@@ -63,7 +63,10 @@ public class Materia {
         this.activo = activo;
     }
     
-    
+    @Override
+    public String toString() {
+        return "Materia{" + "idMateria=" + idMateria + ", anio=" + anio + ", nombre=" + nombre + ", activo=" + activo + '}';
+    }
     
     
 }

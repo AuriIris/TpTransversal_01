@@ -16,6 +16,11 @@ public class Inscripcion {
   private double nota;
   private boolean activo;
 
+    @Override
+    public String toString() {
+        return "Inscripcion{" + "idInscripcion=" + idInscripcion + ", alumno=" + alumno + ", materia=" + materia + ", nota=" + nota + ", activo=" + activo + '}';
+    }
+
     public Inscripcion(int idInscripcion, Alumno alumno, Materia materia, double nota, boolean activo) {
         this.idInscripcion = idInscripcion;
         this.alumno = alumno;

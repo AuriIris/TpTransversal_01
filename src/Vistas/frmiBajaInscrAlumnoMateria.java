@@ -5,6 +5,17 @@
  */
 package Vistas;
 
+import Data.AlumnoData;
+import Data.InscripcionData;
+import Data.MateriaData;
+import Modelo.Alumno;
+import Modelo.Conexion;
+import Modelo.Inscripcion;
+import Modelo.Materia;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Romi
@@ -16,6 +27,7 @@ public class frmiBajaInscrAlumnoMateria extends javax.swing.JInternalFrame {
      */
     public frmiBajaInscrAlumnoMateria() {
         initComponents();
+        cargarCbo();
     }
 
     /**
@@ -33,13 +45,19 @@ public class frmiBajaInscrAlumnoMateria extends javax.swing.JInternalFrame {
         cboAlumno = new javax.swing.JComboBox<>();
         btnBaja = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
+        btnSeleccionar = new javax.swing.JButton();
 
-        setTitle("Baja Inscripcion de Alumno a Materia");
+        setTitle("Desinscribir Alumno");
 
         jLabel1.setText("Materia");
 
         jLabel2.setText("Alumno");
 
+        cboAlumno.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cboAlumnoMouseClicked(evt);
+            }
+        });
         cboAlumno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboAlumnoActionPerformed(evt);
@@ -47,12 +65,33 @@ public class frmiBajaInscrAlumnoMateria extends javax.swing.JInternalFrame {
         });
 
         btnBaja.setText("Baja");
+        btnBaja.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBajaMouseClicked(evt);
+            }
+        });
+        btnBaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBajaActionPerformed(evt);
+            }
+        });
 
         btnVolver.setText("Volver");
-        btnVolver.setActionCommand("Volver");
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVolverActionPerformed(evt);
+            }
+        });
+
+        btnSeleccionar.setText("Seleccionar");
+        btnSeleccionar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSeleccionarMouseClicked(evt);
+            }
+        });
+        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarActionPerformed(evt);
             }
         });
 
@@ -61,57 +100,162 @@ public class frmiBajaInscrAlumnoMateria extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cboMateria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cboAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(81, 81, 81))
+                    .addComponent(cboAlumno, 0, 269, Short.MAX_VALUE)
+                    .addComponent(cboMateria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnBaja)
-                .addGap(43, 43, 43)
-                .addComponent(btnVolver)
-                .addGap(98, 98, 98))
+                .addContainerGap(137, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnBaja)
+                        .addGap(43, 43, 43)
+                        .addComponent(btnVolver)
+                        .addGap(98, 98, 98))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnSeleccionar)
+                        .addGap(108, 108, 108))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(78, 78, 78)
+                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cboAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addComponent(btnSeleccionar)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
+                        .addGap(15, 15, 15)
                         .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(cboMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                    .addComponent(cboMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(140, 140, 140)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVolver)
                     .addComponent(btnBaja))
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    public void cargarCbo(){
+        try {
+            Conexion con=new Conexion();
+            AlumnoData a=new AlumnoData(con);
+            MateriaData m=new MateriaData(con);
+            List<Alumno> alumnos= a.buscarTodosAlumnos();
+            List<Materia> materias= m.buscarTodasMaterias();
+            for (int i = 0; i < alumnos.size(); i++) {
+                if(alumnos.get(i).isActivo()==true)
+                cboAlumno.addItem(alumnos.get(i).toString());       
+            }
+            for (int i = 0; i < materias.size(); i++) {
+                if(materias.get(i).isActivo()==true)
+                cboMateria.addItem(materias.get(i).toString());
+            }
+             
+                    
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiModificarAlumno.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+}
     private void cboAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboAlumnoActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_cboAlumnoActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
 dispose();            // TODO add your handling code here:
     }//GEN-LAST:event_btnVolverActionPerformed
 
+    private void btnBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaActionPerformed
+      
+    }//GEN-LAST:event_btnBajaActionPerformed
+
+    private void cboAlumnoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboAlumnoMouseClicked
+     
+    }//GEN-LAST:event_cboAlumnoMouseClicked
+
+    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
+         
+    }//GEN-LAST:event_btnSeleccionarActionPerformed
+
+    private void btnSeleccionarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSeleccionarMouseClicked
+      Conexion con;
+        try {
+            con = new Conexion();
+           Alumno al=new Alumno();
+           Materia ma=new Materia();
+           InscripcionData ins= new InscripcionData(con);
+            AlumnoData a=new AlumnoData(con);
+            MateriaData m=new MateriaData(con);
+            List<Alumno> alumnos= a.buscarTodosAlumnos();
+            List<Materia> materias= m.buscarTodasMaterias();
+        for (int i = 0; i < alumnos.size(); i++) {
+            
+            if(cboAlumno.getSelectedItem().toString().equals(alumnos.get(i).toString())){
+            al=alumnos.get(i);
+        }}
+        List<Inscripcion> insc=ins.obtenerInscripcionesAlumno(al.getIdAlumno());
+        cboMateria.removeAllItems();
+          for (int i = 0; i < insc.size(); i++) {
+              System.out.println(insc.get(i).getMateria().toString());
+              
+                cboMateria.addItem(insc.get(i).getMateria().toString());
+            }
+       
+       } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiInscribirAlumnoMateria.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnSeleccionarMouseClicked
+
+    private void btnBajaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBajaMouseClicked
+          Conexion con;
+        try {
+            con = new Conexion();
+           Alumno al=new Alumno();
+           Materia ma=new Materia();
+           InscripcionData ins= new InscripcionData(con);
+            AlumnoData a=new AlumnoData(con);
+            MateriaData m=new MateriaData(con);
+            List<Alumno> alumnos= a.buscarTodosAlumnos();
+            List<Materia> materias= m.buscarTodasMaterias();
+        for (int i = 0; i < materias.size(); i++) {
+            if(cboMateria.getSelectedItem().toString().equals(materias.get(i).toString())){
+                ma=materias.get(i);
+        }}
+        for (int i = 0; i < alumnos.size(); i++) {
+            
+            if(cboAlumno.getSelectedItem().toString().equals(alumnos.get(i).toString())){
+            al=alumnos.get(i);
+        }}
+           List<Inscripcion> inscr= ins.obtenerInscripcionesAlumno(al.getIdAlumno());
+           Inscripcion i=new Inscripcion();
+            for (int j = 0; j < inscr.size(); j++) {
+                System.out.println(inscr.get(j).getMateria().toString().equals(ma.toString()));
+                if(inscr.get(j).getMateria().toString().equals(ma.toString())){
+                    i=inscr.get(j);
+                    System.out.println(i.getIdInscripcion());
+                    ins.bajaInscripcion(i);
+        }}
+            
+       
+ } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiInscribirAlumnoMateria.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnBajaMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBaja;
+    private javax.swing.JButton btnSeleccionar;
     private javax.swing.JButton btnVolver;
     private javax.swing.JComboBox<String> cboAlumno;
     private javax.swing.JComboBox<String> cboMateria;

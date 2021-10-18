@@ -5,6 +5,14 @@
  */
 package Vistas;
 
+import Data.MateriaData;
+import Modelo.Conexion;
+import Modelo.Materia;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Romi
@@ -16,6 +24,7 @@ public class frmiModificarMateria extends javax.swing.JInternalFrame {
      */
     public frmiModificarMateria() {
         initComponents();
+        cargarCboMaterias();
     }
 
     /**
@@ -37,12 +46,8 @@ public class frmiModificarMateria extends javax.swing.JInternalFrame {
         jButton3 = new javax.swing.JButton();
         cbActivo = new javax.swing.JCheckBox();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        cbActivo1 = new javax.swing.JCheckBox();
-        btnSeleccionar = new javax.swing.JButton();
-        cboNombre = new javax.swing.JComboBox<>();
-        cboAño = new javax.swing.JComboBox<>();
+        cboNombres = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
         setTitle("Modificar");
 
@@ -52,6 +57,12 @@ public class frmiModificarMateria extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Activo");
 
+        tfNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfNombreActionPerformed(evt);
+            }
+        });
+
         tfAño.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfAñoKeyTyped(evt);
@@ -59,6 +70,11 @@ public class frmiModificarMateria extends javax.swing.JInternalFrame {
         });
 
         jButton1.setText("Modificar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Limpiar");
 
@@ -69,60 +85,49 @@ public class frmiModificarMateria extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel5.setText("Nombre");
+        jLabel5.setText("Selecione la Materia");
 
-        jLabel6.setText("Año");
-
-        jLabel7.setText("Activo");
-
-        cbActivo1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbActivo1ActionPerformed(evt);
-            }
-        });
-
-        btnSeleccionar.setText("Seleccionar");
+        jLabel1.setText("Rellene todos los campos.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(247, 247, 247)
+                        .addComponent(jButton3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(47, 47, 47)
+                        .addComponent(jButton2)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
-                        .addGap(121, 121, 121)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfAño, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(87, 87, 87))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(cbActivo1)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(cboNombre, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cboAño, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButton1)
-                            .addGap(29, 29, 29)
-                            .addComponent(jButton2)
-                            .addGap(32, 32, 32)
-                            .addComponent(jButton3))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel4))
-                            .addGap(121, 121, 121)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(tfNombre)
-                                .addComponent(tfAño, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cbActivo)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnSeleccionar)
-                            .addGap(75, 75, 75))))
-                .addGap(73, 73, 73))
+                                .addComponent(jLabel4)
+                                .addGap(178, 178, 178)
+                                .addComponent(cbActivo))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(52, 52, 52)
+                                .addComponent(cboNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 69, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,69 +135,96 @@ public class frmiModificarMateria extends javax.swing.JInternalFrame {
                 .addGap(56, 56, 56)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(cboNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(cboAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(cbActivo1))
-                .addGap(35, 35, 35)
-                .addComponent(btnSeleccionar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                    .addComponent(cboNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(47, 47, 47)
+                .addComponent(jLabel1)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(tfAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(cbActivo))
-                .addGap(27, 27, 27)
+                    .addComponent(tfAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(jLabel4))
+                    .addComponent(cbActivo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addGap(71, 71, 71))
+                .addGap(39, 39, 39))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void cbActivo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbActivo1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbActivo1ActionPerformed
-
+ public void cargarCboMaterias(){
+        try {
+            Conexion con=new Conexion();
+            MateriaData a=new MateriaData(con);
+            List<Materia> materias= a.buscarTodasMaterias();
+            
+            for (int i = 0; i < materias.size(); i++) {
+                cboNombres.addItem(materias.get(i));
+            }
+           
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiModificarAlumno.class.getName()).log(Level.SEVERE, null, ex);
+}       
+    }
+    
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
           dispose();// TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void tfAñoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfAñoKeyTyped
-char c=evt.getKeyChar();
-     if(c<'0'||c>'9')evt.consume();        // TODO add your handling code here:
+        char c=evt.getKeyChar();
+        if(c<'0'||c>'9')evt.consume();        // TODO add your handling code here:
     }//GEN-LAST:event_tfAñoKeyTyped
+
+    private void tfNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfNombreActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Conexion con;
+        try {
+            con = new Conexion();
+            MateriaData a=new MateriaData(con);
+          
+            Materia matSelect = (Materia)cboNombres.getSelectedItem();
+            int idSelect = matSelect.getIdMateria();
+            
+            String nom = tfNombre.getText();
+            int año = Integer.parseInt(tfAño.getText());
+            boolean activo = cbActivo.isSelected();
+            
+           Materia mat = new Materia(año,nom,activo);
+            
+           a.modificadarMateria(mat, idSelect);
+           JOptionPane.showMessageDialog(null, "Materia Seleccionada Con Exito.");
+           
+        } catch (ClassNotFoundException ex) {
+           JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos: " + ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSeleccionar;
     private javax.swing.JCheckBox cbActivo;
-    private javax.swing.JCheckBox cbActivo1;
-    private javax.swing.JComboBox<String> cboAño;
-    private javax.swing.JComboBox<String> cboNombre;
+    private javax.swing.JComboBox<Materia> cboNombres;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField tfAño;
     private javax.swing.JTextField tfNombre;
     // End of variables declaration//GEN-END:variables

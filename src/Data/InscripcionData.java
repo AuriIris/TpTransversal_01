@@ -73,87 +73,121 @@ public void guardarInscripcion(Inscripcion ins){
     }
     
 public List<Inscripcion> obtenerInscripcionesMateria(int id){
-        List<Inscripcion> lista= new ArrayList<>();
-        String sql;
-        Inscripcion ins;
-        Alumno alumno;
-        Materia materia;
-        sql = "SELECT * FROM inscripcion,alumno,materia WHERE inscripcion.idAlumno=alumno.idAlumno and inscripcion.idMateria=materia.idMateria and materia.idMateria = ?";
-        PreparedStatement ps;
+      List<Inscripcion> lista= new ArrayList<>();
         try {
-            ps = con.prepareStatement(sql);
-             ps.setInt(1, id);
-             ResultSet rs =ps.executeQuery();
-             while (rs.next()){
-                ins = new Inscripcion();
-                ins.setIdInscripcion(rs.getInt(1));
-                alumno=buscarAlumno(rs.getInt(2));
-                ins.setAlumno(alumno);
-                materia = buscarMateria(rs.getInt(3));
-                ins.setMateria(materia);
-                ins.setNota(rs.getDouble(4));
-                lista.add(ins);
-             }   
-             
+          
+            String sql;
+            Inscripcion ins;
+            Alumno alumno;
+            Materia materia;
+            Conexion p = new Conexion();
+            AlumnoData al=new AlumnoData(p);
+            MateriaData ma=new MateriaData(p);
+            sql = "SELECT * FROM inscripcion,alumno,materia WHERE inscripcion.idAlumno=alumno.idAlumno and inscripcion.idMateria=materia.idMateria and materia.idMateria = ?";
+            PreparedStatement ps;
+            try {
+                ps = con.prepareStatement(sql);
+                ps.setInt(1, id);
+                ResultSet rs =ps.executeQuery();
+                while (rs.next()){
+                    ins = new Inscripcion();
+                    ins.setIdInscripcion(rs.getInt(1));
+                    
+                    alumno= al.buscarAlumno(rs.getInt(2));
+                    ins.setAlumno(alumno);
+                    materia = ma.buscarPorID(rs.getInt(3));
+                    ins.setMateria(materia);
+                    ins.setNota(rs.getDouble(4));
+                    lista.add(ins);
+                }
                 
-        } catch (SQLException ex) {
-            System.out.println("Error al obtener ");
-        }
-    
-        
-        return lista;
- }
-public Alumno buscarAlumno(int id){
-         Alumno alumno=null;
-         String sql = "SELECT * FROM alumno WHERE alumno.idAlumno= ?";
-         
-        try {
-            
-            PreparedStatement ps = con.prepareStatement(sql);
-             ps.setInt(1, id);
-               ResultSet rs =ps.executeQuery();
-               
-            if(rs.next()){
-             alumno=new Alumno();
-           
-             alumno.setIdAlumno(rs.getInt(1));
-             alumno.setLegajo(rs.getInt(2));
-             alumno.setNombre(rs.getString(3));
-             alumno.setApellido(rs.getString(4));
-             alumno.setFechaNac(rs.getDate(5).toLocalDate());
-             alumno.setActivo(rs.getBoolean(6));
+                
+            } catch (SQLException ex) {
+                System.out.println("Error al obtener ");
             }
-        } catch (SQLException ex) {
-            System.out.println("Error al obtener ");
+            
+            
+          
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
-         return alumno;
-         
-  }  
-
-public Materia buscarMateria(int id){
-         String sql;
-         Materia materia;
-         sql = "SELECT * FROM materia WHERE materia.idMateria= ?";
-        
-        materia=new Materia();
+          return lista;
+}
+public void bajaInscripcion(Inscripcion ins){
+        String sql = "UPDATE inscripcion SET `idAlumno`=?,`idMateria`=?,`nota`=?,`activo`=? WHERE `idInscripcion`=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-             ps.setInt(1, id);
-             ResultSet rs =ps.executeQuery();
-             if(rs.next()){
-             materia.setIdMateria(rs.getInt(1));
-             materia.setNombre(rs.getString(2));
-             materia.setAnio(rs.getInt(3));
-             materia.setActivo(rs.getBoolean(4));}
-             
-        } catch (SQLException ex) {
-            System.out.println("Error al obtener ");
+            ps.setInt(1, ins.getAlumno().getIdAlumno());
+            ps.setInt(2, ins.getMateria().getIdMateria());
+            ps.setDouble(3, ins.getNota());
+            ps.setBoolean(4, false);
+            ps.setInt(5,ins.getIdInscripcion());
+            ps.executeUpdate();
+            ps.close();
+        } 
+        catch (SQLException ex) {
+             System.out.println("Error al obtener " + ex);
+          }
+ }
+public void guardarNota(Inscripcion ins){
+        String sql = "UPDATE inscripcion SET `idAlumno`=?,`idMateria`=?,`nota`=?,`activo`=? WHERE `idInscripcion`=?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, ins.getAlumno().getIdAlumno());
+            ps.setInt(2, ins.getMateria().getIdMateria());
+            ps.setDouble(3, ins.getNota());
+            ps.setBoolean(4, ins.isActivo());
+            ps.setInt(5,ins.getIdInscripcion());
+            ps.executeUpdate();
+            ps.close();
+        } 
+        catch (SQLException ex) {
+             System.out.println("Error al obtener " + ex);
+          }
+ }
+public List<Inscripcion> obtenerInscripcionesAlumno(int id){
+      List<Inscripcion> lista= new ArrayList<>();
+        try {
+          
+            String sql;
+            Inscripcion ins;
+            Alumno alumno;
+            Materia materia;
+            Conexion p = new Conexion();
+            AlumnoData al=new AlumnoData(p);
+            MateriaData ma=new MateriaData(p);
+            sql = "SELECT * FROM inscripcion,alumno,materia WHERE inscripcion.idAlumno=alumno.idAlumno and inscripcion.idMateria=materia.idMateria and alumno.idAlumno = ?";
+            PreparedStatement ps;
+            try {
+                ps = con.prepareStatement(sql);
+                ps.setInt(1, id);
+                ResultSet rs =ps.executeQuery();
+                while (rs.next()){
+                    ins = new Inscripcion();
+                    ins.setIdInscripcion(rs.getInt(1));
+                    
+                    alumno= al.buscarAlumno(rs.getInt(2));
+                    ins.setAlumno(alumno);
+                    materia = ma.buscarPorID(rs.getInt(3));
+                    ins.setMateria(materia);
+                    ins.setNota(rs.getDouble(4));
+                    lista.add(ins);
+                }
+                
+                
+            } catch (SQLException ex) {
+                System.out.println("Error al obtener ");
+            }
+            
+            
+          
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
-         return materia;
-  }    
-
+          return lista;
 }
+}
+
+ 
     
     

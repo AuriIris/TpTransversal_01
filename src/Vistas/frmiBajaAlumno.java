@@ -5,6 +5,14 @@
  */
 package Vistas;
 
+import Data.AlumnoData;
+import Modelo.Alumno;
+import Modelo.Conexion;
+import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Romi
@@ -33,7 +41,7 @@ public class frmiBajaAlumno extends javax.swing.JInternalFrame {
         cbFecNac = new javax.swing.JComboBox<>();
         btnVolver = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        cbBuscar = new javax.swing.JCheckBox();
+        cbActivo = new javax.swing.JCheckBox();
         jLabel7 = new javax.swing.JLabel();
         btnBaja = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
@@ -54,6 +62,11 @@ public class frmiBajaAlumno extends javax.swing.JInternalFrame {
         jLabel7.setText("Legajo");
 
         btnBaja.setText("Baja");
+        btnBaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBajaActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Activo");
 
@@ -81,7 +94,7 @@ public class frmiBajaAlumno extends javax.swing.JInternalFrame {
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(cbBuscar)
+                                .addComponent(cbActivo)
                                 .addComponent(cbLegajo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(cbNombre, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(cbApellido, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -113,7 +126,7 @@ public class frmiBajaAlumno extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(cbBuscar))
+                    .addComponent(cbActivo))
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBaja)
@@ -128,12 +141,31 @@ public class frmiBajaAlumno extends javax.swing.JInternalFrame {
   dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_btnVolverActionPerformed
 
+    private void btnBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaActionPerformed
+     int legajo= Integer.parseInt(cbLegajo.getActionCommand());
+            String nom= cbNombre.getActionCommand();
+            String ape= cbApellido.getActionCommand();
+            Boolean activo=cbActivo.isSelected();
+            Alumno al=new Alumno(legajo,nom,ape,activo,LocalDate.of(2000,10,05));
+            Conexion con;
+            try {
+            con = new Conexion();
+            AlumnoData a=new AlumnoData(con);
+            System.out.println(al.toString());
+            a.borrarAlumno(0);
+             //a.guardarAlumno(al);
+            JOptionPane.showInputDialog(null, al.toString());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiBajaAlumno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnBajaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBaja;
     private javax.swing.JButton btnVolver;
+    private javax.swing.JCheckBox cbActivo;
     private javax.swing.JComboBox<String> cbApellido;
-    private javax.swing.JCheckBox cbBuscar;
     private javax.swing.JComboBox<String> cbFecNac;
     private javax.swing.JComboBox<String> cbLegajo;
     private javax.swing.JComboBox<String> cbNombre;

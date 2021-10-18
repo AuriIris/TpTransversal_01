@@ -44,28 +44,23 @@ public class MateriaData {
 }
 
 
- public boolean modificadarMateria (Materia mat) {
-
-    boolean modificada = false;
-    String sql = "UPDATE materia SET nombre=?,activo=? Where idmateria=?";
-
-    try{
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setString(1,mat.getNombre());
-        ps.setInt(2, mat.getAnio());
-        ps.setBoolean(3, mat.isActivo());
-        ps.setInt(4,mat.getIdMateria());
-
-         ps.executeUpdate();
-        ps.close();
-    }
-
-     catch (SQLException ex){
-         modificada = false;
-        System.out.println("Error al Actualizar la materia: "+ex);
-        }
-      return modificada;
-
+ public boolean modificadarMateria (Materia mat, int ID) {
+ boolean modificada = false;
+ String sql = "UPDATE materia SET nombre=?,activo=?, activo=? Where idMateria=?";
+ try{
+ PreparedStatement ps = con.prepareStatement(sql);
+ ps.setString(1,mat.getNombre());
+ ps.setInt(2, mat.getAnio());
+ ps.setBoolean(3, mat.isActivo());
+ ps.setInt(4,ID);
+ ps.executeUpdate();
+ ps.close();
+ }
+ catch (SQLException ex){
+ modificada = false;
+ System.out.println("Error al Actualizar la materia: "+ex);
+ }
+ return modificada;
  }
 
 public List<Materia> buscarMateriasPorNombre (String nombre){
@@ -93,6 +88,32 @@ public List<Materia> buscarMateriasPorNombre (String nombre){
     }
     return resultados;
 }
+public List<Materia> buscarTodasMaterias(){
+    List<Materia> resultados;
+    resultados = new ArrayList<>();
+    Materia mat= null;
+    String sql = "SELECT * FROM materia";
+    try{
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+      while(rs.next()){
+        mat = new Materia();
+        mat.setIdMateria(rs.getInt("idMateria"));
+        mat.setNombre(rs.getString("nombre"));
+        mat.setAnio(rs.getInt("anio"));
+        mat.setActivo(rs.getBoolean("activo"));
+
+    resultados.add(mat);
+    }
+    ps.close();
+    }
+    catch(SQLException ex){
+    System.out.println("No se encontraron resultados: "+ ex);
+    }
+    return resultados;
+}
+
+
 public Materia buscarPorID (int ID){
     Materia mat = null;
     String sql = "SELECT * FROM materia Where idMateria=?";
@@ -114,20 +135,45 @@ public Materia buscarPorID (int ID){
     }
     return mat;
 }
- public void borrarMateria (Materia mat) {
-
-    String sql = "UPDATE materia SET activo=? WHERE idmateria=?";
-
-    try{
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setBoolean(0, false);
-
-        ps.executeUpdate();
-        ps.close();
+ public void borrarMateria(int id){
+ 
+     String sql="DELETE FROM materia WHERE idAMateia=?";
+      PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException ex) {
+             System.out.println("Error al borrar "+ex);
+        }
+ }
+ 
+ 
+   public void desactivarMateria(int id){
+    String sql = "UPDATE materia SET activo=? WHERE idMateria=?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setBoolean(1, false);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al desactivar "+ex);
+        }
     }
-
- catch (SQLException ex){
- System.out.println("Error al Actualizar la materia: "+ex); 
- }
- }
+ 
+   
+      public void activarMateria (int id){
+        String sql = "UPDATE materia SET activo=? WHERE idMateria=?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setBoolean(1,true);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+            
+        } catch (SQLException ex) {
+            System.out.println("Error al desactivar "+ex);
+        }
+    }
 }

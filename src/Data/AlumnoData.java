@@ -166,26 +166,24 @@ public Alumno buscarAlumno(int id){
          return alumno;
          
   }  
-    public void actualizarAlumno(Alumno alumno){
-        String sql = "UPDATE alumno SET legajo=?, nombre=?, apellido=? ,fechNac=? WHERE idAlumno=?";
-        
-        
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, alumno.getLegajo());
-            ps.setString(2, alumno.getNombre());
-            ps.setString(3, alumno.getApellido());
-            //ps.setDate(4, Date.valueOf(alumno.getFechNac()));//LocalDate a Date
-            ps.setBoolean(5, alumno.isActivo());
-            ps.setInt(6,alumno.getIdAlumno() );
-            ps.executeUpdate();
-            
-            ps.close();
-        } catch (SQLException ex) {
-            
-          }
+   public void actualizarAlumno(Alumno alumno, int ID){
+ String sql = "UPDATE alumno SET legajo=?, nombre=?, apellido=? , activo=? ,fechNac=? WHERE idAlumno=?";
+ 
+ 
+ try {
+ PreparedStatement ps = con.prepareStatement(sql);
+ ps.setInt(1, alumno.getLegajo());
+ ps.setString(2, alumno.getNombre());
+ ps.setString(3, alumno.getApellido());
+ //ps.setDate(4, Date.valueOf(alumno.getFechNac()));//LocalDate a Date
+ ps.setBoolean(5, alumno.isActivo());
+ ps.setInt(6,ID);
+ 
+ ps.executeUpdate();
+ ps.close();
+ } catch (SQLException ex) {
+ 
  }
-
    
-
+   }
 }

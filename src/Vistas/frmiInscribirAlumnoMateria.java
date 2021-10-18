@@ -5,6 +5,18 @@
  */
 package Vistas;
 
+import Data.AlumnoData;
+import Data.InscripcionData;
+import Data.MateriaData;
+import Modelo.Alumno;
+import Modelo.Conexion;
+import Modelo.Inscripcion;
+import Modelo.Materia;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Romi
@@ -16,6 +28,7 @@ public class frmiInscribirAlumnoMateria extends javax.swing.JInternalFrame {
      */
     public frmiInscribirAlumnoMateria() {
         initComponents();
+        cargarCbo();
     }
 
     /**
@@ -47,6 +60,11 @@ public class frmiInscribirAlumnoMateria extends javax.swing.JInternalFrame {
         });
 
         btnInscribir.setText("Inscribir");
+        btnInscribir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInscribirActionPerformed(evt);
+            }
+        });
 
         btnVolver.setText("Volver");
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -99,14 +117,67 @@ public class frmiInscribirAlumnoMateria extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    public void cargarCbo(){
+        try {
+            Conexion con=new Conexion();
+            AlumnoData a=new AlumnoData(con);
+            MateriaData m=new MateriaData(con);
+            List<Alumno> alumnos= a.buscarTodosAlumnos();
+            List<Materia> materias= m.buscarTodasMaterias();
+            for (int i = 0; i < alumnos.size(); i++) {
+                if(alumnos.get(i).isActivo()==true)
+                cboAlumno.addItem(alumnos.get(i).toString());       
+            }
+            for (int i = 0; i < materias.size(); i++) {
+                if(materias.get(i).isActivo()==true)
+                cboMateria.addItem(materias.get(i).toString());
+            }
+             
+                    
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiModificarAlumno.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+}
     private void cboAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboAlumnoActionPerformed
-        // TODO add your handling code here:
+        try {
+            Conexion con =new Conexion();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiInscribirAlumnoMateria.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_cboAlumnoActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-dispose();            // TODO add your handling code here:
+            dispose();            // TODO add your handling code here:
     }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void btnInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInscribirActionPerformed
+           Conexion con;
+        try {
+            con = new Conexion();
+           Alumno al=new Alumno();
+           Materia ma=new Materia();
+           InscripcionData ins= new InscripcionData(con);
+            AlumnoData a=new AlumnoData(con);
+            MateriaData m=new MateriaData(con);
+            List<Alumno> alumnos= a.buscarTodosAlumnos();
+            List<Materia> materias= m.buscarTodasMaterias();
+        for (int i = 0; i < materias.size(); i++) {
+            if(cboMateria.getSelectedItem().toString().equals(materias.get(i).toString())){
+                ma=materias.get(i);
+        }}
+        for (int i = 0; i < alumnos.size(); i++) {
+            
+            if(cboAlumno.getSelectedItem().toString().equals(alumnos.get(i).toString())){
+            al=alumnos.get(i);
+        }}
+         Inscripcion i=new Inscripcion(al,ma,0,true);
+         
+       ins.guardarInscripcion(i);
+ } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiInscribirAlumnoMateria.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnInscribirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -6,12 +6,18 @@
 package Vistas;
 
 import Data.AlumnoData;
+import Data.MateriaData;
 import Modelo.Alumno;
 import Modelo.Conexion;
+import Modelo.Materia;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -38,32 +44,27 @@ public class frmiModificarAlumno extends javax.swing.JInternalFrame {
 
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        cbActivo = new javax.swing.JCheckBox();
         jLabel4 = new javax.swing.JLabel();
         tfApellido = new javax.swing.JTextField();
         tfNombre = new javax.swing.JTextField();
         tfLegajo = new javax.swing.JTextField();
         btnModificar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        cboLegajo = new javax.swing.JComboBox<>();
-        cboNombre = new javax.swing.JComboBox<>();
-        cboApellido = new javax.swing.JComboBox<>();
-        cboFecNac = new javax.swing.JComboBox<>();
-        cbBuscar = new javax.swing.JCheckBox();
-        btnSeleccionar = new javax.swing.JButton();
+        cboAlumno = new javax.swing.JComboBox<>();
         cboDia = new javax.swing.JComboBox<>();
         cboMes = new javax.swing.JComboBox<>();
         cboAño = new javax.swing.JComboBox<>();
-        jLabel11 = new javax.swing.JLabel();
         btnLimpiar = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jtDia = new javax.swing.JFormattedTextField();
+        jtMes = new javax.swing.JFormattedTextField();
+        jtAño = new javax.swing.JFormattedTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -71,14 +72,17 @@ public class frmiModificarAlumno extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Legajo");
 
-        jLabel5.setText("Activo");
-
         jLabel2.setText("Nombre");
 
         jLabel3.setText("Apellido");
 
         jLabel4.setText("Fecha de Nacimiento");
 
+        tfLegajo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfLegajoActionPerformed(evt);
+            }
+        });
         tfLegajo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfLegajoKeyTyped(evt);
@@ -99,26 +103,19 @@ public class frmiModificarAlumno extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel6.setText("Fecha de Nacimiento");
+        jLabel7.setText("Seleccione el Alumno ");
 
-        jLabel7.setText("Legajo");
-
-        jLabel8.setText("Activo");
-
-        jLabel9.setText("Nombre");
-
-        jLabel10.setText("Apellido");
-
-        btnSeleccionar.setText("Selecionar");
+        cboAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboAlumnoActionPerformed(evt);
+            }
+        });
 
         cboDia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
 
         cboMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
 
         cboAño.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1950", "1951", "1952", "1953", "1954", "1955", "1956", "1957", "1958", "1959", "1960", "1961", "1962", "1963", "1964", "1965", "1966", "1967", "1968", "1969", "1970", "1971", "1972", "1973", "1974", "1975", "1976", "1977", "1978", "1979", "1980", "1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021" }));
-
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel11.setText("Buscar");
 
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -127,115 +124,125 @@ public class frmiModificarAlumno extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel6.setText("Rellene todos los campos:");
+
+        jtDia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("00"))));
+
+        jtMes.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("00"))));
+
+        jtAño.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0000"))));
+
+        jLabel8.setText("Dia(DD)");
+
+        jLabel9.setText("Mes(MM)");
+
+        jLabel10.setText("Año(YYYY)");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(tfApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel10))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(24, 24, 24)
+                                        .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jtAño, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+                                            .addComponent(jtMes)
+                                            .addComponent(jtDia)))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tfLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cboMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cboDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cboAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(67, 67, 67)
-                                .addComponent(btnModificar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnLimpiar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnVolver))
-                            .addComponent(jLabel7)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel8))
-                                .addGap(76, 76, 76)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(cbBuscar)
-                                        .addComponent(cbActivo)
-                                        .addComponent(tfLegajo)
-                                        .addComponent(tfNombre)
-                                        .addComponent(tfApellido)
-                                        .addComponent(cboNombre, 0, 135, Short.MAX_VALUE)
-                                        .addComponent(cboApellido, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(cboLegajo, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(cboFecNac, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(cboDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cboMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cboAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                        .addGap(233, 233, 233)
+                        .addComponent(cboAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(121, 121, 121)
-                        .addComponent(jLabel11))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(137, 137, 137)
-                        .addComponent(btnSeleccionar)))
-                .addContainerGap(60, Short.MAX_VALUE))
+                        .addGap(77, 77, 77)
+                        .addComponent(btnModificar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnLimpiar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnVolver)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cboAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cboDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(cboLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tfLegajo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(cboNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(cboApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(cboFecNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(cbBuscar))
-                .addGap(30, 30, 30)
-                .addComponent(btnSeleccionar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(tfLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(tfApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(cboAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(cbActivo))
+                    .addComponent(jLabel3)
+                    .addComponent(tfApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel8))
+                .addGap(46, 46, 46)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
                 .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
+                .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnModificar)
                     .addComponent(btnLimpiar)
                     .addComponent(btnVolver))
-                .addGap(67, 67, 67))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -244,27 +251,17 @@ public void cargarCbo(){
         try {
             Conexion con=new Conexion();
             AlumnoData a=new AlumnoData(con);
+            
             List<Alumno> alumnos= a.buscarTodosAlumnos();
             for (int i = 0; i < alumnos.size(); i++) {
-                cboNombre.addItem(alumnos.get(i).getNombre());
+                cboAlumno.addItem(alumnos.get(i)); 
             }
-            for (int i = 0; i < alumnos.size(); i++) {
-                cboApellido.addItem(alumnos.get(i).getApellido());
-            }
-             for (int i = 0; i < alumnos.size(); i++) {
-                cboLegajo.addItem(alumnos.get(i).getLegajo());
-            }  
-             for (int i = 0; i < alumnos.size(); i++) {
-             //   cboFecNac.addItem(alumnos.get(i).getFechaNac());
-            }
-                    
+            
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(frmiModificarAlumno.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
-
 }
+        
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
   dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_btnVolverActionPerformed
@@ -276,9 +273,7 @@ public void cargarCbo(){
     cboDia.setSelectedIndex(0);
     cboMes.setSelectedIndex(0);
     cboAño.setSelectedIndex(0);  
-    cboNombre.setSelectedIndex(0);
-    cboApellido.setSelectedIndex(0);
-    cboLegajo.setSelectedIndex(0);
+    cboAlumno.setSelectedIndex(0);
     
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
@@ -286,38 +281,81 @@ public void cargarCbo(){
 char c=evt.getKeyChar();
      if(c<'0'||c>'9')evt.consume();        // TODO add your handling code here:
     }//GEN-LAST:event_tfLegajoKeyTyped
-
+    public static boolean validarFecha(String fecha) {
+        try {
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy/mm/dd");
+            formatoFecha.setLenient(false);
+            formatoFecha.parse(fecha);
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
+    }
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        // TODO add your handling code here:
+        if(!tfLegajo.getText().isEmpty()&&!tfNombre.getText().isEmpty()&&!tfApellido.getText().isEmpty()&&!jtAño.getText().isEmpty()&&!jtMes.getText().isEmpty()&&!jtDia.getText().isEmpty())
+     { if(validarFecha(jtAño.getText()+"/"+jtMes.getText()+"/"+jtDia.getText())){
+        Conexion con;
+        try {
+            con = new Conexion();
+            AlumnoData a=new AlumnoData(con);
+          
+            Alumno alumSelect = (Alumno)cboAlumno.getSelectedItem();
+            int idSelect = alumSelect.getIdAlumno();
+            
+            String nom = tfNombre.getText();
+            int legajo = Integer.parseInt(tfLegajo.getText());
+            String ape = tfApellido.getText();
+           
+            int dia = Integer.parseInt(jtDia.getText());
+            int mes = Integer.parseInt(jtMes.getText());
+            int año = Integer.parseInt(jtAño.getText());
+    
+           Alumno alum=new Alumno(legajo,nom,ape,true,LocalDate.of(año,mes,dia));
+         
+           a.actualizarAlumno(alum, idSelect);
+           JOptionPane.showMessageDialog(null, "Alumno Modificado Con Exito.");
+           
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos: " + ex);
+        }}
+        else
+             JOptionPane.showMessageDialog(null,"Ingrese una fecha valida");
+        
+     }
+        else
+            JOptionPane.showMessageDialog(null,"Falta completar un campo");
     }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void cboAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboAlumnoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboAlumnoActionPerformed
+
+    private void tfLegajoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfLegajoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfLegajoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModificar;
-    private javax.swing.JButton btnSeleccionar;
     private javax.swing.JButton btnVolver;
-    private javax.swing.JCheckBox cbActivo;
-    private javax.swing.JCheckBox cbBuscar;
-    private javax.swing.JComboBox<String> cboApellido;
+    private javax.swing.JComboBox<Alumno> cboAlumno;
     private javax.swing.JComboBox<String> cboAño;
     private javax.swing.JComboBox<String> cboDia;
-    private javax.swing.JComboBox<String> cboFecNac;
-    private javax.swing.JComboBox<Integer> cboLegajo;
     private javax.swing.JComboBox<String> cboMes;
-    private javax.swing.JComboBox<String> cboNombre;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JFormattedTextField jtAño;
+    private javax.swing.JFormattedTextField jtDia;
+    private javax.swing.JFormattedTextField jtMes;
     private javax.swing.JTextField tfApellido;
     private javax.swing.JTextField tfLegajo;
     private javax.swing.JTextField tfNombre;
