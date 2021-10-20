@@ -20,76 +20,6 @@ import java.util.logging.Logger;
 public class Main {
      public static void main(String[] args) {
         
-             //         try{
-//         Conexion con=new Conexion();
-//         AlumnoData ad=new AlumnoData(con);
-//         Alumno alum = new Alumno(4568,"Romina","Auriol",true,LocalDate.of(2000,9,19));
-//         ad.guardarAlumno(alum);
-//         }
-//         catch(ClassNotFoundException ex){
-//             System.out.println("en el main" + ex);
-//         }
-//         
-//         try{
-//         Conexion con=new Conexion();
-//          MateriaData ad=new MateriaData(con);
-//          Materia mat = new Materia(2,"Matematica",true);
-//          ad.guardarMateria(mat);
-//         }
-//         catch(ClassNotFoundException ex){
-//             System.out.println("en el main" + ex);
-//         }
-//         
-//         try{
-//         Conexion con=new Conexion();
-//
-//          
-//          AlumnoData al= new AlumnoData(con);
-//          MateriaData ma=new MateriaData(con);
-//          Alumno alum = new Alumno(4568,"Romina","Auriol",true,LocalDate.of(2000,9,19));
-//          .guardarAlumno(alum);
-//         
-//          MateriaData matD=new MateriaData(con);
-//          Materia mat = new Materia(2,"Matematica",true);
-//          matD.guardarMateria(mat);
-//
-//
-//         
-//         //System.out.println(al.buscarAlumno(2).toString());
-//           InscripcionData ad=new InscripcionData();
-//        //  Inscripcion a = new Inscripcion(ma.buscarPorID(2),5,true);
-//            
-//            Inscripcion a = new Inscripcion (alum ,mat , 5, true);
-//         
-//         }
-//         catch(ClassNotFoundException ex){
-//             System.out.println("en el main" + ex);
-//         }
-//         
-// try{
-//          Conexion con=new Conexion();
-//          AlumnoData al= new AlumnoData(con);
-//          //JOptionPane.showMessageDialog(null, al.buscarAlumno(1).toString());
-//         //System.out.println(al.buscarAlumno(1).toString());                                                                                                                                     JOptionPane.showMessageDialog(null, al.buscarAlumno(4568).toString());
-//         //al.buscarAlumno(4568),ma.buscarPorID(2),5,true);
-//         //ad.guardarInscripcion(a);
-//         }
-//         catch(ClassNotFoundException ex){
-//             System.out.println("en el main" + ex);
-//         }
-//            
-//                 try{
-//          Conexion con=new Conexion();
-//          AlumnoData al= new AlumnoData(con);
-//          MateriaData ma=new MateriaData(con);
-//          InscripcionData ad=new InscripcionData(con);
-//          Inscripcion a = new Inscripcion(al.buscarAlumno(1),ma.buscarPorID(2),5,true);
-//          ad.guardarInscripcion(a);
-//         }
-//         catch(ClassNotFoundException ex){
-//             System.out.println("en el main" + ex);
-//         }
-
 
 //---------------------------------------------------------------PRUEBAS PABLO-------------------------------------------------------------------------//
 
@@ -129,14 +59,13 @@ Inscripcion ins = new Inscripcion(alum,mat2,4,true);
 System.out.println("");
 
 Inscripcion ins2 = new Inscripcion(alum2,mat2,5,true);
-//insD.guardarInscripcion(ins2); //No ingresa el IdDeAlumno ni materia.         ///NO ASIGANA EL IDMATERIA NI IDALUMNO, PROVOCA ERRORES EN METODOS SIGIENTES
-                                                                                //NO PUEDE OBTENER ID DESDE LAS BASES DE DATOS.
+//insD.guardarInscripcion(ins2); //No ingresa el IdDeAlumno ni materia.         ///Ok SE OBTENDRA EN UN FUTURO DESDE LAS VISTAS.
                                                                                 
 //insD.bajaInscripcion(ins);                                                    //Ok 
 //insD.guardarNota(1,9);                                                        //Ok
 
-//System.out.println(insD.obtenerInscripcionesAlumno(1));                       //NO FUNCIONA POR PROBLEMA DE OBETENER ID DESDE BASE DE DATOS.
-//System.out.println(insD.obtenerInscripcionesMateria(0);                       //NO FUNCIONA POR PROBLEMA DE OBETENER ID DESDE BASE DE DATOS.
+//System.out.println(insD.obtenerInscripcionesAlumno(1));                       //Ok SE OBTENDRA EN UN FUTURO DESDE LAS VISTAS.
+//System.out.println(insD.obtenerInscripcionesMateria(0);                       //Ok SE OBTENDRA EN UN FUTURO DESDE LAS VISTAS.
 
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -147,13 +76,13 @@ Inscripcion ins2 = new Inscripcion(alum2,mat2,5,true);
  
  
  
- //matD.desactivarMateria(1);                                                   //Ok PROBLEMA AL OBTENER ID DESDE LA BASE DE DATOS.
- //matD.desactivarMateria(2);                                                   //Ok PROBLEMA AL OBTENER ID DESDE LA BASE DE DATOS.
+ //matD.desactivarMateria(1);                                                   //Ok SE OBTENDRA EN UN FUTURO DESDE LAS VISTAS.
+ //matD.desactivarMateria(2);                                                   //Ok SE OBTENDRA EN UN FUTURO DESDE LAS VISTAS.
  
- //matD.activarMateria(1);                                                      //Ok PROBLEMA AL OBTENER ID DESDE LA BASE DE DATOS.
- //matD.activarMateria(2);                                                      //Ok PROBLEMA AL OBTENER ID DESDE LA BASE DE DATOS.
+ //matD.activarMateria(1);                                                      //Ok SE OBTENDRA EN UN FUTURO DESDE LAS VISTAS.
+ //matD.activarMateria(2);                                                      //Ok SE OBTENDRA EN UN FUTURO DESDE LAS VISTAS.
  
- //System.out.println(matD.buscarPorID(2));                                     //Ok PROBLEMA AL OBTENER ID DESDE LA BASE DE DATOS.
+ //System.out.println(matD.buscarPorID(2));                                     //Ok SE OBTENDRA EN UN FUTURO DESDE LAS VISTAS.
  
  System.out.println("");
  
@@ -165,35 +94,35 @@ Inscripcion ins2 = new Inscripcion(alum2,mat2,5,true);
  
  
  Materia mat3 = new Materia (3,"Matematica",true);
- //matD.modificadarMateria(mat3,2); //Ok                                        //OK PROBLEMA AL OBTENER ID DESDE LA BASE DE DATOS.
+ //matD.modificadarMateria(mat3,2); //Ok                                        //SE OBTENDRA EN UN FUTURO DESDE LAS VISTAS.
     
  System.out.println("");
 
-// matD.borrarMateria(1);                                                       //Ok PROBLEMA AL OBTENER ID DESDE LA BASE DE DATOS.
-// matD.borrarMateria(2);                                                       //Ok PROBLEMA AL OBTENER ID DESDE LA BASE DE DATOS.
+// matD.borrarMateria(1);                                                       //SE OBTENDRA EN UN FUTURO DESDE LAS VISTAS.
+// matD.borrarMateria(2);                                                       //SE OBTENDRA EN UN FUTURO DESDE LAS VISTAS.
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-//alumD.desactivarAlumno(1);                                                    //Ok PROBLEMA AL OBTENER ID DESDE LA BASE DE DATOS.
-//alumD.desactivarAlumno(2);                                                    //Ok PROBLEMA AL OBTENER ID DESDE LA BASE DE DATOS.
+//alumD.desactivarAlumno(1);                                                    //Ok SE OBTENDRA EN UN FUTURO DESDE LAS VISTAS.
+//alumD.desactivarAlumno(2);                                                    //Ok SE OBTENDRA EN UN FUTURO DESDE LAS VISTAS.
 
      
 
-//alumD.activarAlumno(1);                                                       //Ok PROBLEMA AL OBTENER ID DESDE LA BASE DE DATOS.
-//alumD.activarAlumno(2);                                                       //Ok PROBLEMA AL OBTENER ID DESDE LA BASE DE DATOS.
+//alumD.activarAlumno(1);                                                       //Ok SE OBTENDRA EN UN FUTURO DESDE LAS VISTAS.
+//alumD.activarAlumno(2);                                                       //Ok SE OBTENDRA EN UN FUTURO DESDE LAS VISTAS.
 
      System.out.println("");
-    //System.out.println(alumD.buscarAlumno(1));                                //Ok PROBLEMA AL OBTENER ID DESDE LA BASE DE DATOS.
-    //System.out.println(alumD.buscarAlumno(2));                                //Ok PROBLEMA AL OBTENER ID DESDE LA BASE DE DATOS.
+    //System.out.println(alumD.buscarAlumno(1));                                //Ok SE OBTENDRA EN UN FUTURO DESDE LAS VISTAS.
+    //System.out.println(alumD.buscarAlumno(2));                                //Ok SE OBTENDRA EN UN FUTURO DESDE LAS VISTAS.
      
      System.out.println("");
      
 //     System.out.println(alumD.buscarTodosAlumnos());                          //Ok
      
  Alumno alum3 = new Alumno(410,"Pablo","Denis",true, LocalDate.of(2000,07,04));
- //alumD.actualizarAlumno(alum3, 1);                                            //Ok PROBLEMA AL OBTENER ID DESDE LA BASE DE DATOS.
+ //alumD.actualizarAlumno(alum3, 1);                                            //Ok SE OBTENDRA EN UN FUTURO DESDE LAS VISTAS.
  
-  //alumD.borrarAlumno(2);                                                        //OK PROBLEMA AL OBTENER ID DESDE LA BASE DE DATOS.
+  //alumD.borrarAlumno(2);                                                      //OK SE OBTENDRA EN UN FUTURO DESDE LAS VISTAS.
  
  
     } catch (ClassNotFoundException ex) {
