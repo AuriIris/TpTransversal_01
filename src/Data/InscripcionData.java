@@ -26,13 +26,13 @@ public class InscripcionData {
     public InscripcionData() {
     }
 
+    
     public InscripcionData(Connection con, Conexion conexion) {
         this.con = con;
         this.conexion = conexion;
     }
     
-    
-    
+
     
 public InscripcionData(Conexion conexion) {
         try {
@@ -61,6 +61,7 @@ public void guardarInscripcion(Inscripcion ins){
 
             if (rs.next()) {
                 ins.setIdInscripcion(rs.getInt(1));
+                System.out.println("Inscripcion guardada con exito.");
             } else {
                 System.out.println("No se pudo obtener el id luego de insertar inscripcion");
             }
@@ -124,22 +125,24 @@ public void bajaInscripcion(Inscripcion ins){
             ps.setInt(5,ins.getIdInscripcion());
             ps.executeUpdate();
             ps.close();
+            
+            System.out.println("Inscripcion dada de baja");
         } 
         catch (SQLException ex) {
              System.out.println("Error al obtener " + ex);
           }
  }
-public void guardarNota(Inscripcion ins){
-        String sql = "UPDATE inscripcion SET `idAlumno`=?,`idMateria`=?,`nota`=?,`activo`=? WHERE `idInscripcion`=?";
+public void guardarNota(int id, double nota){
+        String sql = "UPDATE inscripcion SET nota=? WHERE idInscripcion=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, ins.getAlumno().getIdAlumno());
-            ps.setInt(2, ins.getMateria().getIdMateria());
-            ps.setDouble(3, ins.getNota());
-            ps.setBoolean(4, ins.isActivo());
-            ps.setInt(5,ins.getIdInscripcion());
+            ps.setDouble(1, nota);
+            ps.setInt(2,id);
+            
             ps.executeUpdate();
             ps.close();
+            
+            System.out.println("Nota guardada con exito.");
         } 
         catch (SQLException ex) {
              System.out.println("Error al obtener " + ex);

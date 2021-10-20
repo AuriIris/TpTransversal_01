@@ -47,7 +47,8 @@ public class AlumnoData {
                 ps.setDate(4, Date.valueOf(alumno.getFechaNac()));
                 ps.setBoolean(5, alumno.isActivo());
                 ps.executeUpdate();
-            
+                
+                System.out.println("Alumno guardado con exito.");
         } catch (SQLException ex) {
             System.out.println("Error al guardar "+ex);
         }
@@ -62,6 +63,8 @@ public class AlumnoData {
             ps.setInt(1, id);
             ps.executeUpdate();
             ps.close();
+            
+            System.out.println("Alumno borrado definitivamente");
         } catch (SQLException ex) {
              System.out.println("Error al borrar "+ex);
         }
@@ -122,6 +125,8 @@ return alum;
             ps.setInt(2, id);
             ps.executeUpdate();
             ps.close();
+            
+            System.out.println("Alumno dado de baja con exito");
         } catch (SQLException ex) {
             System.out.println("Error al desactivar "+ex);
         }
@@ -135,6 +140,7 @@ return alum;
             ps.setInt(2, id);
             ps.executeUpdate();
             
+            System.out.println("Alumno dado de alta nuevamente con exito.");
         } catch (SQLException ex) {
             System.out.println("Error al desactivar "+ex);
         }
@@ -167,22 +173,23 @@ public Alumno buscarAlumno(int id){
          
   }  
    public void actualizarAlumno(Alumno alumno, int ID){
- String sql = "UPDATE alumno SET legajo=?, nombre=?, apellido=? , activo=? ,fechNac=? WHERE idAlumno=?";
- 
+ String sql = "UPDATE alumno SET legajo=?, nombre=?, apellido=?, fechaNac=? , activo=? Where idAlumno=?";
  
  try {
  PreparedStatement ps = con.prepareStatement(sql);
  ps.setInt(1, alumno.getLegajo());
  ps.setString(2, alumno.getNombre());
  ps.setString(3, alumno.getApellido());
- //ps.setDate(4, Date.valueOf(alumno.getFechNac()));//LocalDate a Date
+ ps.setDate(4, Date.valueOf(alumno.getFechaNac()));
  ps.setBoolean(5, alumno.isActivo());
  ps.setInt(6,ID);
  
  ps.executeUpdate();
  ps.close();
- } catch (SQLException ex) {
  
+ System.out.println("Alumno modificado con exito.");
+ } catch (SQLException ex) {
+     System.out.println("Error al conectar con la base de datos. " + ex);
  }
    
    }

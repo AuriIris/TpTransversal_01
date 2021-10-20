@@ -34,7 +34,7 @@ public class MateriaData {
         ps.setString(1, mat.getNombre());
         ps.setBoolean(3, mat.isActivo());
         ps.executeUpdate();
-     
+         System.out.println("Materia guardada con exito.");
      }
      catch (SQLException ex){
     System.out.println("Error al insertar: "+ex); 
@@ -44,25 +44,25 @@ public class MateriaData {
 }
 
 
- public boolean modificadarMateria (Materia mat, int ID) {
- boolean modificada = false;
- String sql = "UPDATE materia SET nombre=?,activo=?, activo=? Where idMateria=?";
+ public void modificadarMateria (Materia mat, int ID) {
+ String sql = "UPDATE materia SET nombre=? , anio=? , activo=? Where idMateria=?";
  try{
  PreparedStatement ps = con.prepareStatement(sql);
  ps.setString(1,mat.getNombre());
  ps.setInt(2, mat.getAnio());
  ps.setBoolean(3, mat.isActivo());
  ps.setInt(4,ID);
+ 
  ps.executeUpdate();
  ps.close();
+     System.out.println("Materia modificada con exito.");
  }
  catch (SQLException ex){
- modificada = false;
- System.out.println("Error al Actualizar la materia: "+ex);
+ System.out.println("Error al actualizar materia: "+ex);
  }
- return modificada;
+ 
  }
-
+ 
 public List<Materia> buscarMateriasPorNombre (String nombre){
     List<Materia> resultados;
     resultados = new ArrayList<>();
@@ -88,6 +88,7 @@ public List<Materia> buscarMateriasPorNombre (String nombre){
     }
     return resultados;
 }
+
 public List<Materia> buscarTodasMaterias(){
     List<Materia> resultados;
     resultados = new ArrayList<>();
@@ -137,13 +138,16 @@ public Materia buscarPorID (int ID){
 }
  public void borrarMateria(int id){
  
-     String sql="DELETE FROM materia WHERE idAMateia=?";
+     String sql="DELETE FROM materia WHERE idMateria=?";
+     
       PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ps.executeUpdate();
             ps.close();
+            
+            System.out.println("Materia Borrada con exito.");
         } catch (SQLException ex) {
              System.out.println("Error al borrar "+ex);
         }
@@ -158,6 +162,8 @@ public Materia buscarPorID (int ID){
             ps.setInt(2, id);
             ps.executeUpdate();
             ps.close();
+            
+            System.out.println("Materia dada de baja con exito.");
         } catch (SQLException ex) {
             System.out.println("Error al desactivar "+ex);
         }
@@ -172,6 +178,7 @@ public Materia buscarPorID (int ID){
             ps.setInt(2, id);
             ps.executeUpdate();
             
+            System.out.println("Materia dada de alta nuevamente.");
         } catch (SQLException ex) {
             System.out.println("Error al desactivar "+ex);
         }
