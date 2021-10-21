@@ -75,18 +75,21 @@ public class AlumnoData {
     public List<Alumno> buscarTodosAlumnos(){
     List<Alumno> resultados;
         resultados = new ArrayList<>();
-        Alumno alum= null;
+        Alumno alumno= null;
         String sql = "SELECT * FROM alumno ";
     try{
         PreparedStatement ps = con.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
     while(rs.next()){
-        alum = new Alumno();
-        alum.setIdAlumno(rs.getInt("idAlumno"));
-        alum.setNombre(rs.getString("nombre"));
-        alum.setActivo(rs.getBoolean("activo"));
+             alumno=new Alumno();
+             alumno.setIdAlumno(rs.getInt(1));
+             alumno.setLegajo(rs.getInt(2));
+             alumno.setNombre(rs.getString(3));
+             alumno.setApellido(rs.getString(4));
+             alumno.setFechaNac(rs.getDate(5).toLocalDate());
+             alumno.setActivo(rs.getBoolean(6));
 
-    resultados.add(alum);
+    resultados.add(alumno);
     }
     ps.close();
     }
@@ -98,7 +101,7 @@ return resultados;
   }
 
 public Alumno buscarPorID (int ID){
- Alumno alum = null;
+ Alumno alum = new Alumno();
 String sql = "SELECT * FROM alumno Where idAlumno=?";
 try{
 PreparedStatement ps = con.prepareStatement(sql);
@@ -107,9 +110,14 @@ ResultSet rs = ps.executeQuery();
 if(rs.next()) {
  alum = new Alumno();
 
+ 
  alum.setIdAlumno(rs.getInt("idAlumno"));
+ alum.setLegajo(rs.getInt("legajo"));
  alum.setNombre(rs.getString("nombre"));
+ alum.setApellido(rs.getString("apellido"));
  alum.setActivo(rs.getBoolean("activo"));
+ alum.setFechaNac(rs.getDate("fechaNac").toLocalDate());
+ 
 }
 }
 catch(SQLException ex){
@@ -193,4 +201,30 @@ public Alumno buscarAlumno(int id){
  }
    
    }
+   public List<Alumno> buscarAlumnosPorNombre (String nombre){
+    List<Alumno> resultados;
+    resultados = new ArrayList<>();
+    Alumno alum = new Alumno() ;
+    String sql = "SELECT * FROM alumno Where nombre like '%" + nombre + "%'";
+    try{
+        PreparedStatement ps = con.prepareStatement(sql);
+ 
+        ResultSet rs = ps.executeQuery();
+      while(rs.next()){
+             alum.setIdAlumno(rs.getInt(1));
+             alum.setLegajo(rs.getInt(2));
+             alum.setNombre(rs.getString(3));
+             alum.setApellido(rs.getString(4));
+             alum.setFechaNac(rs.getDate(5).toLocalDate());
+             alum.setActivo(rs.getBoolean(6));
+
+    resultados.add(alum);
+    }
+    ps.close();
+    }
+    catch(SQLException ex){
+    System.out.println("No se encontraron resultados: "+ ex);
+    }
+    return resultados;
+}
 }

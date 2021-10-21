@@ -339,7 +339,12 @@ public class frmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jmListarAlumnosxMateriaMouseClicked
 
     private void jmListarMateriasxAlumnoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmListarMateriasxAlumnoMouseClicked
-          // TODO add your handling code here:
+           jdpMenu.removeAll();
+       jdpMenu.repaint();
+       frmiListarPorAlumno aC=new frmiListarPorAlumno();
+       aC.setVisible(true);
+       jdpMenu.add(aC);
+       jdpMenu.moveToFront(aC);
     }//GEN-LAST:event_jmListarMateriasxAlumnoMouseClicked
 
     private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed

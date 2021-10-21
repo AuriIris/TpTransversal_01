@@ -72,7 +72,41 @@ public void guardarInscripcion(Inscripcion ins){
         }
     
     }
-    
+public List<Inscripcion> obtenerInscripciones(){
+      List<Inscripcion> lista= new ArrayList<>();
+        try {
+          
+            String sql;
+            
+            Alumno alumno;
+            Materia materia;
+            Conexion p = new Conexion();
+            Inscripcion ins= new Inscripcion();
+            AlumnoData al=new AlumnoData(p);
+            MateriaData ma=new MateriaData(p);
+            sql = "SELECT * FROM inscripcion ";
+            PreparedStatement ps;
+            try {
+                ps = con.prepareStatement(sql);
+                ResultSet rs =ps.executeQuery();
+                while (rs.next()){
+                    ins = new Inscripcion();
+                    ins.setIdInscripcion(rs.getInt(1));
+                    alumno= al.buscarAlumno(rs.getInt(2));
+                    ins.setAlumno(alumno);
+                    materia = ma.buscarPorID(rs.getInt(3));
+                    ins.setMateria(materia);
+                    ins.setNota(rs.getDouble(4));
+                    lista.add(ins);
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error al obtener ");
+            }
+        } catch (ClassNotFoundException ex) {
+             System.out.println("Error al obtener "+ ex);
+        }
+          return lista;
+}
 public List<Inscripcion> obtenerInscripcionesMateria(int id){
       List<Inscripcion> lista= new ArrayList<>();
         try {
@@ -84,7 +118,7 @@ public List<Inscripcion> obtenerInscripcionesMateria(int id){
             Conexion p = new Conexion();
             AlumnoData al=new AlumnoData(p);
             MateriaData ma=new MateriaData(p);
-            sql = "SELECT * FROM inscripcion,alumno,materia WHERE inscripcion.idAlumno=alumno.idAlumno and inscripcion.idMateria=materia.idMateria and materia.idMateria = ?";
+            sql = "SELECT *  FROM inscripcion Where idMateria=?;";
             PreparedStatement ps;
             try {
                 ps = con.prepareStatement(sql);
@@ -151,35 +185,34 @@ public void guardarNota(int id, double nota){
 public List<Inscripcion> obtenerInscripcionesAlumno(int id){
       List<Inscripcion> lista= new ArrayList<>();
         try {
-          
-            String sql;
             Inscripcion ins;
-            Alumno alumno;
-            Materia materia;
+            Alumno alumno = new Alumno();
+            Materia materia = new Materia();
             Conexion p = new Conexion();
             AlumnoData al=new AlumnoData(p);
             MateriaData ma=new MateriaData(p);
-            sql = "SELECT * FROM inscripcion,alumno,materia WHERE inscripcion.idAlumno=alumno.idAlumno and inscripcion.idMateria=materia.idMateria and alumno.idAlumno = ?";
-            PreparedStatement ps;
+            String sql = "SELECT *  FROM inscripcion Where idAlumno=?;";
             try {
-                ps = con.prepareStatement(sql);
+                PreparedStatement ps = con.prepareStatement(sql);
                 ps.setInt(1, id);
+                
                 ResultSet rs =ps.executeQuery();
                 while (rs.next()){
                     ins = new Inscripcion();
                     ins.setIdInscripcion(rs.getInt(1));
-                    
                     alumno= al.buscarAlumno(rs.getInt(2));
                     ins.setAlumno(alumno);
                     materia = ma.buscarPorID(rs.getInt(3));
                     ins.setMateria(materia);
                     ins.setNota(rs.getDouble(4));
+                    ins.setActivo(rs.getBoolean(5));
+                    
                     lista.add(ins);
                 }
                 
                 
             } catch (SQLException ex) {
-                System.out.println("Error al obtener ");
+                System.out.println("Error al obtener " + ex);
             }
             
             
@@ -189,6 +222,7 @@ public List<Inscripcion> obtenerInscripcionesAlumno(int id){
         }
           return lista;
 }
+
 }
 
  

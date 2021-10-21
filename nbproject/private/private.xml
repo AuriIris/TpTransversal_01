@@ -3,11 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TpTransversal/src/Data/MateriaData.java</file>
-            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TpTransversal/src/Modelo/Alumno.java</file>
-            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TpTransversal/src/Modelo/Main.java</file>
-            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TpTransversal/src/Data/InscripcionData.java</file>
-            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TpTransversal/src/Modelo/Inscripcion.java</file>
+            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TpTransversal/src/Vistas/frmiAgregarMateria.java</file>
+            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TpTransversal/src/Modelo/Main.java</file>
+            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TpTransversal/src/Vistas/frmiAgregarAlumno.java</file>
+            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TpTransversal/src/Vistas/frmiBajaInscrAlumnoMateria.java</file>
+            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TpTransversal/src/Vistas/frmiModificarMateria.java</file>
+            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TpTransversal/src/Vistas/frmiModificarAlumno.java</file>
+            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TpTransversal/src/Modelo/Inscripcion.java</file>
+            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TpTransversal/src/Data/InscripcionData.java</file>
+            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TpTransversal/src/Vistas/frmiBajaMateria.java</file>
+            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TpTransversal/src/Modelo/Conexion.java</file>
+            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TpTransversal/src/Data/MateriaData.java</file>
+            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TpTransversal/src/Vistas/frmiInscribirAlumnoMateria.java</file>
+            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TpTransversal/src/Vistas/frmiCargarCalificacion.java</file>
         </group>
     </open-files>
 </project-private>
