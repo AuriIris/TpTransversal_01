@@ -236,6 +236,10 @@ public class frmiAgregarAlumno extends javax.swing.JInternalFrame {
     tfNombre.setText("");
     tfApellido.setText("");
     tfLegajo.setText("");
+    
+    jtAño.setText("");
+    jtMes.setText("");
+    jtDia.setText("");
         
     }//GEN-LAST:event_btnLimpiarActionPerformed
 

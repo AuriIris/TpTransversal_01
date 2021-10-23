@@ -205,6 +205,8 @@ public class frmiModificarMateria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfNombreActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+         if(!tfNombre.getText().isEmpty()&&!tfAño.getText().isEmpty())
+       {
         Conexion con;
         try {
             con = new Conexion();
@@ -224,11 +226,12 @@ public class frmiModificarMateria extends javax.swing.JInternalFrame {
         } catch (ClassNotFoundException ex) {
            JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos: " + ex);
         }
+         }
+       else  JOptionPane.showMessageDialog(null,"Complete todos los campos");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnSeleccionarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSeleccionarMouseClicked
-       if(!tfNombre.getText().isEmpty()&&!tfAño.getText().isEmpty())
-       {
+     
         try {
             Conexion con=new Conexion();
             MateriaData a=new MateriaData(con);
@@ -238,11 +241,11 @@ public class frmiModificarMateria extends javax.swing.JInternalFrame {
             cbActivo.setSelected(mat.isActivo());
             
             
+            
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(frmiModificarMateria.class.getName()).log(Level.SEVERE, null, ex);
         }
-       }
-       else  JOptionPane.showInputDialog(null,"Complete todos los campos");
+      
     }//GEN-LAST:event_btnSeleccionarMouseClicked
 
 

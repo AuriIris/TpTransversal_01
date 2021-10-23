@@ -13,6 +13,8 @@ import Modelo.Materia;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -62,6 +64,7 @@ public class frmiModificarAlumno extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        btnSelecionar = new javax.swing.JButton();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -129,6 +132,16 @@ public class frmiModificarAlumno extends javax.swing.JInternalFrame {
 
         jLabel10.setText("Año(YYYY)");
 
+        btnSelecionar.setText("Selecionar");
+        btnSelecionar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSelecionarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSelecionarMouseEntered(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -178,17 +191,23 @@ public class frmiModificarAlumno extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnVolver)
                 .addContainerGap(89, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSelecionar)
+                .addGap(75, 75, 75))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(cboAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addComponent(btnSelecionar)
+                .addGap(19, 19, 19)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfLegajo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -218,7 +237,7 @@ public class frmiModificarAlumno extends javax.swing.JInternalFrame {
                     .addComponent(btnModificar)
                     .addComponent(btnLimpiar)
                     .addComponent(btnVolver))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
@@ -246,6 +265,9 @@ public void cargarCbo(){
     tfNombre.setText("");
     tfApellido.setText("");
     tfLegajo.setText(""); 
+    jtAño.setText("");
+    jtMes.setText("");
+    jtDia.setText("");
     cboAlumno.setSelectedIndex(0);
     
     }//GEN-LAST:event_btnLimpiarActionPerformed
@@ -307,10 +329,28 @@ char c=evt.getKeyChar();
         // TODO add your handling code here:
     }//GEN-LAST:event_tfLegajoActionPerformed
 
+    private void btnSelecionarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSelecionarMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSelecionarMouseEntered
+
+    private void btnSelecionarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSelecionarMouseClicked
+     
+        Alumno alumno = new Alumno();
+        alumno= (Alumno)cboAlumno.getSelectedItem();
+        tfLegajo.setText(alumno.getLegajo()+"");
+        tfNombre.setText(alumno.getNombre()+"");
+        tfApellido.setText(alumno.getApellido()+"");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+        jtMes.setText(alumno.getFechaNac().getMonth().getValue()+"");
+        jtAño.setText(alumno.getFechaNac().getYear()+"");
+        jtDia.setText(alumno.getFechaNac().getDayOfMonth()+"");
+    }//GEN-LAST:event_btnSelecionarMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnSelecionar;
     private javax.swing.JButton btnVolver;
     private javax.swing.JComboBox<Alumno> cboAlumno;
     private javax.swing.JComboBox<String> jComboBox1;

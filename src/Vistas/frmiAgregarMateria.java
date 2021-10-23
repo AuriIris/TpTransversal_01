@@ -66,6 +66,11 @@ public class frmiAgregarMateria extends javax.swing.JInternalFrame {
         });
 
         jButton2.setText("Limpiar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Volver");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -155,6 +160,12 @@ public class frmiAgregarMateria extends javax.swing.JInternalFrame {
           JOptionPane.showInputDialog(null,"Complete todos los campos");
      
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       tfNombre.setText("");
+       tfAño.setText("");
+       cbActivo.setSelected(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

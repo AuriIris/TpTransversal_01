@@ -31,10 +31,7 @@ public class frmiListarPorAlumno extends javax.swing.JInternalFrame {
     private AlumnoData alumnoData;
     private ArrayList<Alumno> listaAlumno;
     private Conexion conexion;
-    
-    /**
-     * Creates new form frmiListarPorAlumno
-     */
+
     public frmiListarPorAlumno() {
         
         model =new DefaultTableModel();

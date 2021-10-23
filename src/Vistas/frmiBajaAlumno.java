@@ -9,6 +9,7 @@ import Data.AlumnoData;
 import Modelo.Alumno;
 import Modelo.Conexion;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -24,6 +25,7 @@ public class frmiBajaAlumno extends javax.swing.JInternalFrame {
      */
     public frmiBajaAlumno() {
         initComponents();
+        cargarCboAlumnos();
     }
 
     /**
@@ -35,18 +37,10 @@ public class frmiBajaAlumno extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cbLegajo = new javax.swing.JComboBox<>();
         cbNombre = new javax.swing.JComboBox<>();
-        cbApellido = new javax.swing.JComboBox<>();
-        cbFecNac = new javax.swing.JComboBox<>();
         btnVolver = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        cbActivo = new javax.swing.JCheckBox();
-        jLabel7 = new javax.swing.JLabel();
         btnBaja = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
 
         setTitle("Baja Alumno");
 
@@ -57,10 +51,6 @@ public class frmiBajaAlumno extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel6.setText("Fecha de Nacimiento");
-
-        jLabel7.setText("Legajo");
-
         btnBaja.setText("Baja");
         btnBaja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -68,70 +58,38 @@ public class frmiBajaAlumno extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel8.setText("Activo");
-
-        jLabel9.setText("Nombre");
-
-        jLabel10.setText("Apellido");
+        jLabel9.setText("Alumno");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel8)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(49, 49, 49)
-                                .addComponent(btnBaja)))
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(cbActivo)
-                                .addComponent(cbLegajo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cbNombre, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cbApellido, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cbFecNac, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnVolver)
-                                .addGap(88, 88, 88)))))
-                .addContainerGap(78, Short.MAX_VALUE))
+                        .addGap(74, 74, 74)
+                        .addComponent(btnBaja)
+                        .addGap(80, 80, 80)
+                        .addComponent(btnVolver))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jLabel9)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(cbLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(65, 65, 65)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(cbNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(cbApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(cbFecNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(cbActivo))
-                .addGap(29, 29, 29)
+                .addGap(96, 96, 96)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBaja)
                     .addComponent(btnVolver))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         pack();
@@ -140,23 +98,30 @@ public class frmiBajaAlumno extends javax.swing.JInternalFrame {
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
   dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_btnVolverActionPerformed
-
-    private void btnBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaActionPerformed
-     int legajo= Integer.parseInt(cbLegajo.getActionCommand());
-            String nom= cbNombre.getActionCommand();
-            String ape= cbApellido.getActionCommand();
-            Boolean activo=cbActivo.isSelected();
-            Alumno al=new Alumno(legajo,nom,ape,activo,LocalDate.of(2000,10,05));
-            Conexion con;
-            try {
-            con = new Conexion();
+public void cargarCboAlumnos(){
+        try {
+            Conexion con=new Conexion();
             AlumnoData a=new AlumnoData(con);
-            System.out.println(al.toString());
-            a.borrarAlumno(0);
-             //a.guardarAlumno(al);
-            JOptionPane.showInputDialog(null, al.toString());
+            List<Alumno> alumnos= a.buscarTodosAlumnos();
+            
+            for (int i = 0; i < alumnos.size(); i++) {
+                cbNombre.addItem(alumnos.get(i));
+            }
+         
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiBajaAlumno.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(frmiModificarAlumno.class.getName()).log(Level.SEVERE, null, ex);
+}       
+    }
+    private void btnBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaActionPerformed
+         try {
+            Conexion con=new Conexion();
+            AlumnoData a=new AlumnoData(con);
+            
+            Alumno alum = (Alumno) cbNombre.getSelectedItem();
+            a.desactivarAlumno(alum.getIdAlumno());
+            JOptionPane.showMessageDialog(null, "El Alumno Fue dado de baja.");
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos: " + ex);
         }
     }//GEN-LAST:event_btnBajaActionPerformed
 
@@ -164,15 +129,7 @@ public class frmiBajaAlumno extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBaja;
     private javax.swing.JButton btnVolver;
-    private javax.swing.JCheckBox cbActivo;
-    private javax.swing.JComboBox<String> cbApellido;
-    private javax.swing.JComboBox<String> cbFecNac;
-    private javax.swing.JComboBox<String> cbLegajo;
-    private javax.swing.JComboBox<String> cbNombre;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JComboBox<Alumno> cbNombre;
     private javax.swing.JLabel jLabel9;
     // End of variables declaration//GEN-END:variables
 }
